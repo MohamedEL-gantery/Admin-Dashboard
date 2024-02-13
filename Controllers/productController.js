@@ -1,12 +1,12 @@
 const expressAsync = require('express-async-handler');
 const Product = require('../models/productModel');
-const uploadImage = require('../utils/uploadImages');
+const uploadMedia = require('../utils/uploadMedia');
 const ApiFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
 const Category = require('../models/categoryModel');
 
 exports.createProduct = expressAsync(async (req, res, next) => {
-  const uploadRes = await uploadImage(req.file.path);
+  const uploadRes = await uploadMedia(req.file.path);
   const { name, price, color, quantity, description, category } = req.body;
   if (uploadRes) {
     const product = await Product.create({
