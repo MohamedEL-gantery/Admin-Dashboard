@@ -7,7 +7,7 @@ const User = require('../models/userModel');
 
 exports.createProduct = expressAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id);
-
+  console.log(user);
   if (user.role === 'admin') {
     const uploadRes = await uploadMedia(req.file.path);
     const { name, price, color, quantity, description, category } = req.body;
