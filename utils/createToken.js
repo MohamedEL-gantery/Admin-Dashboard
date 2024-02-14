@@ -16,6 +16,7 @@ const createToken = (user, statusCode, req, res) => {
     ),
     httpOnly: true,
     secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+    sameSite: 'none',
   });
   user.password = undefined;
 
