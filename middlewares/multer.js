@@ -1,5 +1,6 @@
 const multer = require('multer');
 const fs = require('fs');
+const AppError = require('./utils/appError');
 
 if (!fs.existsSync('./media')) {
   fs.mkdirSync('./media');
@@ -14,24 +15,24 @@ const storage = multer.diskStorage({
   },
 });
 
-const fileFilter = (req, file, cb) => {
-  console.log(file);
-  if (
-    file.mimetype.startsWith('image/') ||
-    file.mimetype.startsWith('video/')
-  ) {
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image/')) {
+    cb(null, true);
+  } else if (file.mimetype.startsWith('video/')) {
     cb(null, true);
   } else {
     cb(
-      new Error('File type not supported. Only images and videos are allowed.'),
+      new AppError(
+        'File type not supported. Only images and videos are allowed.'
+      ),
       false
-    ); // Reject the file
+    );
   }
 };
 
 const upload = multer({
   storage: storage,
-  fileFilter: fileFilter,
+  fileFilter: multerFilter,
 });
 
 module.exports = upload;
