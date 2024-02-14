@@ -27,8 +27,8 @@ app.use(express.json());
 app.enable('trust proxy');
 
 app.use(cors());
-app.options('*', cors({ credentials: true }));
-
+app.options('*', cors());
+//{ credentials: true }
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
   console.log(`mode: ${process.env.NODE_ENV}`);
