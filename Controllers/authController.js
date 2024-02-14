@@ -100,7 +100,10 @@ exports.login = expressAsync(async (req, res, next) => {
     return next(new AppError('This User Does Not Longer Exist', 401));
   }
 
-  if (user.active !== true || user.role !== 'user' || user.role !== 'manger') {
+  if (
+    user.active !== true ||
+    (user.role !== 'user' && user.role !== 'manger')
+  ) {
     return next(
       new AppError(
         'Your Account Not Support Again Please Send Email To Admin ',
