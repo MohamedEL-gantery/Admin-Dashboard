@@ -32,7 +32,7 @@ app.enable('trust proxy');
 app.use(
   cors({
     credentials: true,
-    origin: 'http://localhost:4200',
+    origin: 'https://genuine-lebkuchen-14f5e4.netlify.app',
   })
 );
 
