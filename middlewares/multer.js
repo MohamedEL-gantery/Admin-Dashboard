@@ -23,7 +23,8 @@ const multerFilter = (req, file, cb) => {
   } else {
     cb(
       new AppError(
-        'File type not supported. Only images and videos are allowed.'
+        'File type not supported. Only images and videos are allowed.',
+        401
       ),
       false
     );
