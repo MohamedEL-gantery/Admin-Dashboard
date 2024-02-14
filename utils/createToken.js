@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const { none } = require('../middlewares/multer');
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
