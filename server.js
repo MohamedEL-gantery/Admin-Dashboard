@@ -26,15 +26,15 @@ app.use(express.json());
 
 app.enable('trust proxy');
 
-// app.use(cors());
-// app.options('', cors({ credentials: true }));
+app.use(cors());
+app.options('*', cors());
 
-app.use(
-  cors({
-    credentials: true,
-    origin: 'http://localhost:4200',
-  })
-);
+// app.use(
+//   cors({
+//     credentials: true,
+//     origin: 'http://localhost:4200',
+//   })
+// );
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
