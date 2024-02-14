@@ -16,7 +16,7 @@ router.use(authController.restrictTo('admin'));
 
 router.route('/').get(userController.getAllUser);
 
-router.route('/createUser', userController.createUser);
+router.route('/createUser').post(userController.createUser);
 
 router
   .route('/:id')
