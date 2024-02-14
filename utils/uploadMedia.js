@@ -6,9 +6,9 @@ const uploadMedia = async (mediaPath) => {
     const uploadRes = await cloudinary.uploader.upload(mediaPath, {
       folder: 'samples',
       use_filename: true,
-      // resource_type: 'video' | 'image',
       resource_type: 'auto',
     });
+    console.log();
     if (uploadRes) {
       fs.unlinkSync(mediaPath);
       return uploadRes;
