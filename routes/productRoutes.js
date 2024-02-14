@@ -10,24 +10,21 @@ router.use(authController.protected);
 router
   .route('/')
   .post(
-    authController.restrictTo('admin'),
+    authController.restrictTo('admin', 'manger'),
     upload.single('media'),
     productController.createProduct
   )
-  .get(
-    authController.restrictTo('admin', 'user'),
-    productController.getAllProduct
-  );
+  .get(productController.getAllProduct);
 
 router
   .route('/:id')
-  .get(
-    authController.restrictTo('admin', 'user'),
-    productController.getOneProduct
+  .get(productController.getOneProduct)
+  .patch(
+    authController.restrictTo('admin', 'manger'),
+    productController.updateOneProduct
   )
-  .patch(authController.restrictTo('admin'), productController.updateOneProduct)
   .delete(
-    authController.restrictTo('admin'),
+    authController.restrictTo('admin', 'manger'),
     productController.deleteOneProduct
   );
 

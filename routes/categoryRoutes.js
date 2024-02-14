@@ -9,17 +9,11 @@ router.use(authController.protected);
 router
   .route('/')
   .post(authController.restrictTo('admin'), categoryController.CreateCategory)
-  .get(
-    authController.restrictTo('admin', 'user'),
-    categoryController.getAllCategory
-  );
+  .get(categoryController.getAllCategory);
 
 router
   .route('/:id')
-  .get(
-    authController.restrictTo('admin', 'user'),
-    categoryController.getOneCategory
-  )
+  .get(categoryController.getOneCategory)
   .patch(
     authController.restrictTo('admin'),
     categoryController.updateOneCategory
