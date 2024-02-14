@@ -116,7 +116,7 @@ exports.updateOne = expressAsync(async (req, res, next) => {
     );
   }
 
-  const user = await User.findByIdAndUpdate(req.user.id, req.body, {
+  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
