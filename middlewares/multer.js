@@ -1,6 +1,6 @@
 const multer = require('multer');
 const fs = require('fs');
-const AppError = require('./utils/appError');
+const AppError = require('../utils/appError');
 
 if (!fs.existsSync('./media')) {
   fs.mkdirSync('./media');
