@@ -15,7 +15,7 @@ exports.createProduct = expressAsync(async (req, res, next) => {
         description,
         quantity,
         color,
-        media: uploadRes.url,
+        media: uploadRes.secure_url,
         category,
       });
       res.status(201).json({
@@ -36,7 +36,7 @@ exports.createProduct = expressAsync(async (req, res, next) => {
         description,
         quantity,
         color,
-        media: uploadRes.url,
+        media: uploadRes.secure_url,
         category,
         user,
       });
