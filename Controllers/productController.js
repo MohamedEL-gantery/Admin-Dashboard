@@ -86,7 +86,9 @@ exports.updateOneProduct = expressAsync(async (req, res, next) => {
   let product;
   product = await Product.findById(req.params.id);
 
-  if (req.user.id !== product.user.id) {
+  console.log(req.user.id);
+  console.log(product.user.id);
+  if (req.user.id != product.user.id) {
     return next(
       new AppError(
         'You Do Not Have Permission To Perform This Action Only Manger of This Product And Admin',
@@ -119,7 +121,7 @@ exports.deleteOneProduct = expressAsync(async (req, res, next) => {
     return next(new AppError(`NO Product Found With Id ${req.params.id}`));
   }
 
-  if (req.user.id !== product.user.id) {
+  if (req.user.id != product.user.id) {
     return next(
       new AppError(
         'You Do Not Have Permission To Perform This Action Only Manger of This Product And Admin',
