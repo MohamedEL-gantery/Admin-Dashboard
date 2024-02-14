@@ -4,24 +4,49 @@ const uploadMedia = require('../utils/uploadMedia');
 const ApiFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
 const Category = require('../models/categoryModel');
+const User = require('../models/userModel');
 
 exports.createProduct = expressAsync(async (req, res, next) => {
-  const uploadRes = await uploadMedia(req.file.path);
-  const { name, price, color, quantity, description, category } = req.body;
-  if (uploadRes) {
-    const product = await Product.create({
-      name,
-      price,
-      description,
-      quantity,
-      color,
-      media: uploadRes.url,
-      category,
-    });
-    res.status(201).json({
-      status: 'success',
-      data: product,
-    });
+  const user = User.findById(req.user.id);
+
+  if (user.role === 'admin') {
+    const uploadRes = await uploadMedia(req.file.path);
+    const { name, price, color, quantity, description, category } = req.body;
+    if (uploadRes) {
+      const product = await Product.create({
+        name,
+        price,
+        description,
+        quantity,
+        color,
+        media: uploadRes.url,
+        category,
+      });
+      res.status(201).json({
+        status: 'success',
+        data: product,
+      });
+    }
+  } else if (user.role === 'manger') {
+    const uploadRes = await uploadMedia(req.file.path);
+    const { name, price, color, quantity, description, category, user } =
+      req.body;
+    if (uploadRes) {
+      const product = await Product.create({
+        name,
+        price,
+        description,
+        quantity,
+        color,
+        media: uploadRes.url,
+        category,
+        user,
+      });
+      res.status(201).json({
+        status: 'success',
+        data: product,
+      });
+    }
   }
 });
 

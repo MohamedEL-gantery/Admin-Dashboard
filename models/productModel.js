@@ -56,6 +56,10 @@ const productSchema = new mongoose.Schema(
       ref: 'Category',
       required: [true, 'Please Enter A Category ID'],
     },
+    user: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+    },
   },
   {
     timestamps: true,
