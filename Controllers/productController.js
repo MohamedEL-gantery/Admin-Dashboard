@@ -3,9 +3,12 @@ const Product = require('../models/productModel');
 const uploadMedia = require('../utils/uploadMedia');
 const ApiFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
+const User = require('../models/userModel');
 
 exports.createProduct = expressAsync(async (req, res, next) => {
-  if (req.user.role === 'admin') {
+  const user = await User.findById(req.user.id);
+
+  if (user.role === 'admin') {
     const uploadRes = await uploadMedia(req.file.path);
     const { name, price, color, quantity, description, category } = req.body;
     if (uploadRes) {
@@ -23,7 +26,7 @@ exports.createProduct = expressAsync(async (req, res, next) => {
         data: product,
       });
     }
-  } else if (req.user.role === 'manger') {
+  } else if (user.role === 'manger') {
     const uploadRes = await uploadMedia(req.file.path);
     const { name, price, color, quantity, description, category, user } =
       req.body;
