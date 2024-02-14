@@ -63,7 +63,6 @@ const productSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ['in stock', 'out of stock'],
-      required: [true, 'Please Enter Status Of Product'],
       delete: 'in stock',
     },
   },
