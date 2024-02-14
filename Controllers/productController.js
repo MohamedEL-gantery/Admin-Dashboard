@@ -112,22 +112,3 @@ exports.deleteOneProduct = expressAsync(async (req, res, next) => {
     data: null,
   });
 });
-
-exports.getProductByCategory = expressAsync(async (req, res, next) => {
-  const categoryName = req.params.categoryName;
-  console.log(categoryName);
-
-  const category = await Category.findOne({ name: categoryName });
-  if (!category) {
-    return next(new AppError(`NO Category Found With Id ${req.params.id}`));
-  }
-  console.log(category);
-
-  const products = await Product.find({ category: category._id });
-
-  res.status(200).json({
-    status: 'success',
-    result: products.length,
-    data: products,
-  });
-});
