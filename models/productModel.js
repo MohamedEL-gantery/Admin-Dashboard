@@ -60,6 +60,12 @@ const productSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: 'User',
     },
+    status: {
+      type: String,
+      enum: ['in stock', 'out of stock'],
+      required: [true, 'Please Enter Status Of Product'],
+      delete: 'in stock',
+    },
   },
   {
     timestamps: true,
