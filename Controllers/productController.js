@@ -24,6 +24,8 @@ exports.createProduct = expressAsync(async (req, res, next) => {
       });
     }
   } else if (req.user.id === 'manger') {
+    if (!req.body.user) req.body.user = req.user.id;
+
     const uploadRes = await uploadMedia(req.file.path);
     const { name, price, color, quantity, description, category, user } =
       req.body;
