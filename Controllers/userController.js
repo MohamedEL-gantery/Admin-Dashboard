@@ -63,7 +63,9 @@ exports.getOne = expressAsync(async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
   if (!user) {
-    return next(new AppError(`No User Found With This ID :${req.params.id} `));
+    return next(
+      new AppError(`No User Found With This ID :${req.params.id}`, 404)
+    );
   }
 
   res.status(200).json({
@@ -97,7 +99,9 @@ exports.updateMe = expressAsync(async (req, res, next) => {
     runValidators: true,
   });
   if (!user) {
-    return next(new AppError(`No User Found With This ID :${req.user.id} `));
+    return next(
+      new AppError(`No User Found With This ID :${req.params.id}`, 404)
+    );
   }
 
   res.status(200).json({
@@ -121,7 +125,9 @@ exports.updateOne = expressAsync(async (req, res, next) => {
     runValidators: true,
   });
   if (!user) {
-    return next(new AppError(`No User Found With This ID :${req.params.id} `));
+    return next(
+      new AppError(`No User Found With This ID :${req.params.id}`, 404)
+    );
   }
 
   res.status(200).json({
@@ -142,7 +148,9 @@ exports.deleteOne = expressAsync(async (req, res, next) => {
   const user = await User.findByIdAndDelete(req.params.id);
 
   if (!user) {
-    return next(new AppError(`No User Found With This ID :${req.params.id} `));
+    return next(
+      new AppError(`No User Found With This ID :${req.params.id}`, 404)
+    );
   }
 
   res.status(204).json({

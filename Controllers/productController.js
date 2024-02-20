@@ -73,7 +73,7 @@ exports.getOneProduct = expressAsync(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
 
   if (!product) {
-    return next(new AppError(`NO Product Found With Id ${req.params.id}`));
+    return next(new AppError(`NO Product Found With Id ${req.params.id}`, 404));
   }
 
   res.status(200).json({
@@ -87,7 +87,7 @@ exports.updateOneProduct = expressAsync(async (req, res, next) => {
   product = await Product.findById(req.params.id);
 
   if (!product) {
-    return next(new AppError(`NO Product Found With Id ${req.params.id}`));
+    return next(new AppError(`NO Product Found With Id ${req.params.id}`, 404));
   }
 
   if (req.user.id != product.user) {
@@ -116,7 +116,7 @@ exports.deleteOneProduct = expressAsync(async (req, res, next) => {
   product = await Product.findById(req.params.id);
 
   if (!product) {
-    return next(new AppError(`NO Product Found With Id ${req.params.id}`));
+    return next(new AppError(`NO Product Found With Id ${req.params.id}`, 404));
   }
 
   if (req.user.id != product.user) {

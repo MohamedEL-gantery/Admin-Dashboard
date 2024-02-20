@@ -36,7 +36,9 @@ exports.getOneCategory = expressAsync(async (req, res, next) => {
   const category = await Category.findById(req.params.id);
 
   if (!category) {
-    return next(new AppError(`NO Category Found With Id ${req.params.id}`));
+    return next(
+      new AppError(`NO Category Found With Id ${req.params.id}`, 404)
+    );
   }
 
   res.status(200).json({
@@ -52,7 +54,9 @@ exports.updateOneCategory = expressAsync(async (req, res, next) => {
   });
 
   if (!category) {
-    return next(new AppError(`NO Category Found With Id ${req.params.id}`));
+    return next(
+      new AppError(`NO Category Found With Id ${req.params.id}`, 404)
+    );
   }
 
   res.status(200).json({
@@ -65,7 +69,9 @@ exports.deleteOneCategory = expressAsync(async (req, res, next) => {
   const category = await Category.findByIdAndDelete(req.params.id);
 
   if (!category) {
-    return next(new AppError(`NO Category Found With Id ${req.params.id}`));
+    return next(
+      new AppError(`NO Category Found With Id ${req.params.id}`, 404)
+    );
   }
 
   res.status(204).json({
