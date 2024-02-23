@@ -49,7 +49,7 @@ const productSchema = new mongoose.Schema(
     },
     media: {
       type: String,
-      required: [true, 'Please Enter Media '],
+      // required: [true, 'Please Enter Media '],
     },
     category: {
       type: mongoose.Schema.ObjectId,
