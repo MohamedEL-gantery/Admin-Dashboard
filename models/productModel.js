@@ -7,7 +7,6 @@ const productSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, 'Please Enter Your Name'],
-      validate: [validator.isAlpha, 'Name Must Only Contain Characters'],
       minlength: [3, 'Name Must Have More OR Equal then 3 Characters'],
       maxlength: [50, 'Name Must Have Less OR Equal then 50 Characters'],
       trim: true,

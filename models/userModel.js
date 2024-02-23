@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema(
       required: [true, 'Please Enter Your Name'],
       minlength: [3, 'Name Must Have More OR Equal then 3 Characters'],
       trim: true,
-      validate: [validator.isAlpha, 'Name Must Only Contain Characters'],
     },
     slug: String,
     email: {
