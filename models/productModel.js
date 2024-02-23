@@ -10,6 +10,7 @@ const productSchema = new mongoose.Schema(
       validate: [validator.isAlpha, 'Name Must Only Contain Characters'],
       minlength: [3, 'Name Must Have More OR Equal then 3 Characters'],
       maxlength: [50, 'Name Must Have Less OR Equal then 50 Characters'],
+      trim: true,
     },
     price: {
       type: Number,

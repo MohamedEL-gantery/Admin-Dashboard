@@ -11,6 +11,7 @@ const categorySchema = mongoose.Schema(
       minlength: [3, 'Name Must Have More OR Equal then 3 Characters'],
       maxlength: [50, 'Name Must Have Less OR Equal then 50 Characters'],
       unique: true,
+      trim: true,
     },
     slug: String,
   },
