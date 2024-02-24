@@ -24,7 +24,7 @@ const cache = async (req, res, next) => {
 
     const { query, paginationResult } = features;
 
-    const product = await query;
+    const product = query;
     console.log(product);
 
     res.status(200).json({
