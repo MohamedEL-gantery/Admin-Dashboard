@@ -1,7 +1,7 @@
 const express = require('express');
 const authController = require('../Controllers/authController');
 const productController = require('../Controllers/productController');
-const cacheProduct = require('../middlewares/cacheProduct');
+// const cacheProduct = require('../middlewares/cacheProduct');
 const upload = require('../middlewares/multer');
 
 const router = express.Router();
@@ -15,11 +15,11 @@ router
     upload.single('media'),
     productController.createProduct
   )
-  .get(cacheProduct, productController.getAllProduct);
+  .get(productController.getAllProduct);
 
 router
   .route('/:id')
-  .get(cacheProduct, productController.getOneProduct)
+  .get(productController.getOneProduct)
   .patch(
     authController.restrictTo('admin', 'manger'),
     productController.updateOneProduct
