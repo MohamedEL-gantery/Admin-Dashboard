@@ -1,5 +1,6 @@
 const expressAsync = require('express-async-handler');
 const Product = require('../models/productModel');
+const client = require('../utils/redis');
 const uploadMedia = require('../utils/uploadMedia');
 const ApiFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
@@ -8,6 +9,13 @@ exports.createProduct = expressAsync(async (req, res, next) => {
   if (req.user.role === 'admin') {
     const uploadRes = await uploadMedia(req.file.path);
     const { name, price, color, quantity, description, category } = req.body;
+
+    await client.connect();
+
+    await client.del('products');
+
+    await client.disconnect();
+
     if (uploadRes) {
       const product = await Product.create({
         name,
@@ -29,6 +37,13 @@ exports.createProduct = expressAsync(async (req, res, next) => {
     const uploadRes = await uploadMedia(req.file.path);
     const { name, price, color, quantity, description, category, user } =
       req.body;
+
+    await client.connect();
+
+    await client.del('products');
+
+    await client.disconnect();
+
     if (uploadRes) {
       const product = await Product.create({
         name,
@@ -61,6 +76,9 @@ exports.getAllProduct = expressAsync(async (req, res, next) => {
 
   const products = await query;
 
+  await client.set('products', JSON.stringify(products));
+  await client.disconnect();
+
   res.status(200).json({
     status: 'success',
     result: products.length,
@@ -75,6 +93,9 @@ exports.getOneProduct = expressAsync(async (req, res, next) => {
   if (!product) {
     return next(new AppError(`NO Product Found With Id ${req.params.id}`, 404));
   }
+
+  await client.set(`product-${req.params.id}`, JSON.stringify(product));
+  await client.disconnect();
 
   res.status(200).json({
     status: 'success',
@@ -104,6 +125,12 @@ exports.updateOneProduct = expressAsync(async (req, res, next) => {
     runValidators: true,
   });
 
+  await client.connect();
+
+  await client.del([`product-${req.params.id}`, 'products']);
+
+  await client.disconnect();
+
   res.status(200).json({
     status: 'success',
     data: product,
@@ -129,6 +156,12 @@ exports.deleteOneProduct = expressAsync(async (req, res, next) => {
   }
 
   product = await Product.findByIdAndDelete(req.params.id);
+
+  await client.connect();
+
+  await client.del([`product-${req.params.id}`, 'products']);
+
+  await client.disconnect();
 
   res.status(204).json({
     status: 'success',
