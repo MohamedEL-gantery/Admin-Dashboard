@@ -13,6 +13,7 @@ const cache = async (req, res, next) => {
     await client.disconnect();
     const products = JSON.parse(data);
 
+    console.log(products);
     const documentsCounts = await products.countDocuments();
 
     const features = new ApiFeatures(products, req.query)
