@@ -120,10 +120,25 @@ exports.updateOneProduct = expressAsync(async (req, res, next) => {
     );
   }
 
-  product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  const uploadRes = await uploadMedia(req.file.path);
+  const { name, price, color, quantity, description, category } = req.body;
+
+  product = await Product.findByIdAndUpdate(
+    req.params.id,
+    {
+      name,
+      price,
+      description,
+      quantity,
+      color,
+      media: uploadRes.secure_url,
+      category,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
 
   // await client.connect();
 

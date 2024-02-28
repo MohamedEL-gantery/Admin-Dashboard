@@ -4,6 +4,8 @@ const categoryController = require('../Controllers/categoryController');
 
 const router = express.Router();
 
+router.route('/').get(categoryController.getAllCategory);
+
 router.use(authController.protected);
 
 router

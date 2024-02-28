@@ -6,6 +6,8 @@ const upload = require('../middlewares/multer');
 
 const router = express.Router();
 
+router.route('/').get(productController.getAllProduct);
+
 router.use(authController.protected);
 
 router
@@ -14,14 +16,14 @@ router
     authController.restrictTo('admin', 'manger'),
     upload.single('media'),
     productController.createProduct
-  )
-  .get(productController.getAllProduct);
+  );
 
 router
   .route('/:id')
   .get(productController.getOneProduct)
   .patch(
     authController.restrictTo('admin', 'manger'),
+    upload.single('media'),
     productController.updateOneProduct
   )
   .delete(
