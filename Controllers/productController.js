@@ -8,7 +8,8 @@ const AppError = require('../utils/appError');
 exports.createProduct = expressAsync(async (req, res, next) => {
   if (req.user.role === 'admin') {
     const uploadRes = await uploadMedia(req.file.path);
-    const { name, price, color, quantity, description, category } = req.body;
+    const { name, price, color, quantity, description, category, stock } =
+      req.body;
 
     // await client.connect();
 
@@ -25,6 +26,7 @@ exports.createProduct = expressAsync(async (req, res, next) => {
         color,
         media: uploadRes.secure_url,
         category,
+        stock,
       });
       res.status(201).json({
         status: 'success',
@@ -54,6 +56,7 @@ exports.createProduct = expressAsync(async (req, res, next) => {
         media: uploadRes.secure_url,
         category,
         user,
+        stock,
       });
       res.status(201).json({
         status: 'success',
@@ -133,6 +136,7 @@ exports.updateOneProduct = expressAsync(async (req, res, next) => {
       color,
       media: uploadRes.secure_url,
       category,
+      stock,
     },
     {
       new: true,
